@@ -56,6 +56,8 @@ Registration uses an email address. A six-digit verification code is sent by SMT
 
 Configure SMTP in `.env` using `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASSWORD`, and `SMTP_FROM`. Email registration remains unavailable until these settings are supplied. Codes expire after 15 minutes, can be resent after 60 seconds, and are limited to five verification attempts.
 
+SMTP connection, greeting, and idle socket waits are bounded so an unreachable or unresponsive mail server does not leave signup waiting indefinitely. If delivery fails, check the server log for the SMTP provider error and confirm the provider settings.
+
 **Monitoring:** `http://localhost:4000/admin.html`, unlocked with the `ADMIN_KEY` from your `.env`. Shows page views, top pages, signups, and events — see the code comments in `server/routes/admin.js` for what it deliberately does and doesn't protect against (it's a shared-secret key, not a real login — fine for solo dev, not for production, see the security checklist below).
 
 ---

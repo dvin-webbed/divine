@@ -60,6 +60,9 @@ async function sendVerificationCode({ destination, code }) {
       host: process.env.SMTP_HOST,
       port,
       secure: process.env.SMTP_SECURE === 'true' || port === 465,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
       ...(auth ? { auth } : {}),
     });
   }
