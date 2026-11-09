@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — Blue Pips Investment</title>
+<meta name="description" content="Open a Blue Pips Investment account in about two minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a href="index.html" class="wordmark-logo" aria-label="Blue Pips Investment — home">
+      <svg viewBox="0 0 320 72" width="146" height="33" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="barGoldInline" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#9C7C1D"/>
+            <stop offset="1" stop-color="#E4C455"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(4,4)">
+          <rect x="1" y="1" width="62" height="62" rx="14" fill="#0B0B0C" stroke="#4A1420" stroke-width="1.5"/>
+          <rect x="15" y="34" width="7" height="17" rx="1.5" fill="#8C7A2E"/>
+          <rect x="26.5" y="26" width="7" height="25" rx="1.5" fill="#C9A227"/>
+          <rect x="38" y="15" width="7" height="36" rx="1.5" fill="url(#barGoldInline)"/>
+          <polyline points="18.5,32 30,24 41.5,13" fill="none" stroke="#E4C455" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+          <circle cx="41.5" cy="13" r="3.4" fill="#0B0B0C" stroke="#E4C455" stroke-width="1.6"/>
+        </g>
+        <text x="82" y="38" font-family="'Fraunces', serif" font-weight="600" font-size="27" fill="#FCFAF5">BLUE <tspan fill="#C9A227" font-style="italic">PIPS</tspan></text>
+        <text x="83" y="55" font-family="'Inter', sans-serif" font-weight="700" letter-spacing="1.4" font-size="10.5" fill="#8C8A85">INVESTMENT</text>
+      </svg>
+    </a>
+    <nav class="primary-nav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="strategies.html">Strategies</a>
+      <a class="nav-link" href="how-it-works.html">How It Works</a>
+      <a class="nav-link" href="payouts.html">Payouts</a>
+      <a class="nav-link" href="returns.html">Performance</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="login" href="login.html">Log in</a>
+    </div>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<section class="page-header" style="padding-bottom:0; border-bottom:none;">
+  <div class="wrap">
+    <span class="tag-label">Two minutes, no commitment</span>
+    <h1>Set up your Tiered Income account</h1>
+    <p>Tell us about your goals, then choose an investment amount and payout interval from your dashboard. You can fund the account later.</p>
+  </div>
+</section>
+
+<section class="onboard">
+  <div class="wrap">
+    <div class="onboard-shell reveal">
+
+      <div class="onboard-aside">
+        <span class="tag-label">What you're setting up</span>
+        <h3>One investment, flexible payouts</h3>
+        <p style="color:rgba(243,238,227,.7); font-size:14px;">Your monthly rate is based on the amount invested. Select how often you want estimated profits paid from your dashboard.</p>
+        <ul>
+          <li>No cost to complete the intake</li>
+          <li>No obligation to fund the account</li>
+          <li>Takes about two minutes</li>
+          <li>Monthly rates increase with investment tiers</li>
+        </ul>
+      </div>
+
+      <div class="signup-flow">
+      <form class="onboard-form" id="onboard-form" novalidate>
+        <div class="progress">
+          <span class="active"></span><span class="active"></span><span></span><span></span>
+        </div>
+
+        <div class="field">
+          <label for="field-name">Full name</label>
+          <input type="text" id="field-name" placeholder="Jordan Blake" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label id="field-contact-label" for="field-contact">Email address</label>
+          <input type="email" id="field-contact" placeholder="you@email.com" autocomplete="email" required>
+          <small id="field-contact-hint" style="color:var(--steel);">We'll send a verification code to this email.</small>
+        </div>
+        <div class="field">
+          <label for="field-password">Create a password</label>
+          <input type="password" id="field-password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" required>
+        </div>
+
+        <div class="field">
+          <label>What matters most to you right now?</label>
+          <div class="goal-grid">
+            <div class="goal-pick picked">Steady income</div>
+            <div class="goal-pick">Long-term growth</div>
+            <div class="goal-pick">Portfolio diversification</div>
+            <div class="goal-pick">Inflation protection</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-investment-term">Investment term</label>
+          <select id="field-investment-term" required>
+            <option value="1">1 year</option>
+            <option value="2">2 years</option>
+            <option value="3" selected>3 years</option>
+            <option value="5">5 years</option>
+            <option value="10">10 years</option>
+            <option value="lifetime">Lifetime</option>
+          </select>
+          <small style="color:var(--steel);">A fixed term starts when you make your first investment. Principal liquidity is unavailable until maturity.</small>
+        </div>
+
+        <button class="btn btn-gold btn-block" type="submit" id="onboard-submit">Send verification code</button>
+        <p style="font-size:11.5px; color:var(--steel); margin-top:14px; text-align:center;">By continuing, you agree this is a prototype interface for demonstration purposes.</p>
+      </form>
+
+      <div id="signup-verification" class="onboard-form" style="display:none;">
+        <span class="tag-label">Verify your email</span>
+        <h3 style="font-family:var(--font-display); font-size:24px; color:var(--white); margin:10px 0 12px;">Enter your verification code</h3>
+        <p id="signup-verification-destination" style="font-size:14px; color:var(--steel); margin-bottom:22px;"></p>
+        <form id="signup-verification-form" novalidate>
+          <div class="field">
+            <label for="signup-verification-code">Six-digit code</label>
+            <input type="text" id="signup-verification-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+          </div>
+          <button class="btn btn-gold btn-block" type="submit" id="signup-verify-submit">Verify and create account</button>
+        </form>
+        <button class="btn btn-block" type="button" id="signup-resend" style="margin-top:12px;">Resend code</button>
+        <button class="btn btn-block" type="button" id="signup-change-contact" style="margin-top:8px;">Use a different email</button>
+      </div>
+
+      <div id="onboard-error" role="alert" style="display:none; background:rgba(74,20,32,.35); border:1px solid var(--oxblood-bright); color:var(--parchment); padding:12px 14px; border-radius:4px; font-size:13px; margin:18px 0;"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none; padding-top:0;">
+      <div><a href="https://t.me/+g3WnK4PEswM5YTI0" target="_blank" rel="noopener" title="Telegram">Telegram</a><span class="social-disabled" title="Coming soon">Instagram</span><span class="social-disabled" title="Coming soon">X</span></div>
+      <div>© 2026 Blue Pips Investment. Front-end prototype — not an offer to sell securities.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

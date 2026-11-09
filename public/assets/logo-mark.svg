@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="barGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#9C7C1D"/>
+      <stop offset="1" stop-color="#E4C455"/>
+    </linearGradient>
+  </defs>
+
+  <!-- backdrop -->
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#0B0B0C" stroke="#4A1420" stroke-width="1.5"/>
+
+  <!-- ascending pip bars -->
+  <rect x="15" y="34" width="7" height="17" rx="1.5" fill="#8C7A2E"/>
+  <rect x="26.5" y="26" width="7" height="25" rx="1.5" fill="#C9A227"/>
+  <rect x="38" y="15" width="7" height="36" rx="1.5" fill="url(#barGold)"/>
+
+  <!-- trend line -->
+  <polyline points="18.5,32 30,24 41.5,13" fill="none" stroke="#E4C455" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- pip marker -->
+  <circle cx="41.5" cy="13" r="3.4" fill="#0B0B0C" stroke="#E4C455" stroke-width="1.6"/>
+</svg>

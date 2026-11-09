@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.bluepips.example/index.html</loc><priority>1.0</priority></url>
+  <url><loc>https://www.bluepips.example/strategies.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.bluepips.example/how-it-works.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.bluepips.example/payouts.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.bluepips.example/returns.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.bluepips.example/get-started.html</loc><priority>0.7</priority></url>
+  <url><loc>https://www.bluepips.example/login.html</loc><priority>0.3</priority></url>
+  <url><loc>https://www.bluepips.example/about.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.bluepips.example/contact.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.bluepips.example/help.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.bluepips.example/press.html</loc><priority>0.4</priority></url>
+  <url><loc>https://www.bluepips.example/careers.html</loc><priority>0.3</priority></url>
+  <url><loc>https://www.bluepips.example/glossary.html</loc><priority>0.4</priority></url>
+  <url><loc>https://www.bluepips.example/terms.html</loc><priority>0.2</priority></url>
+  <url><loc>https://www.bluepips.example/privacy.html</loc><priority>0.2</priority></url>
+  <url><loc>https://www.bluepips.example/disclosures.html</loc><priority>0.2</priority></url>
+</urlset>

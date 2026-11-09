@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: bluepips-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: bluepips
+      MYSQL_USER: bluepips
+      MYSQL_PASSWORD: bluepips_dev_password
+      MYSQL_ROOT_PASSWORD: root_dev_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - bluepips_mysql_data:/var/lib/mysql
+
+volumes:
+  bluepips_mysql_data:

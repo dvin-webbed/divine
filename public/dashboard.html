@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Blue Pips Investment</title>
+<meta name="description" content="Your Blue Pips Investment account dashboard.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a href="index.html" class="wordmark-logo" aria-label="Blue Pips Investment — home">
+      <svg viewBox="0 0 320 72" width="146" height="33" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="barGoldInline" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#9C7C1D"/>
+            <stop offset="1" stop-color="#E4C455"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(4,4)">
+          <rect x="1" y="1" width="62" height="62" rx="14" fill="#0B0B0C" stroke="#4A1420" stroke-width="1.5"/>
+          <rect x="15" y="34" width="7" height="17" rx="1.5" fill="#8C7A2E"/>
+          <rect x="26.5" y="26" width="7" height="25" rx="1.5" fill="#C9A227"/>
+          <rect x="38" y="15" width="7" height="36" rx="1.5" fill="url(#barGoldInline)"/>
+          <polyline points="18.5,32 30,24 41.5,13" fill="none" stroke="#E4C455" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+          <circle cx="41.5" cy="13" r="3.4" fill="#0B0B0C" stroke="#E4C455" stroke-width="1.6"/>
+        </g>
+        <text x="82" y="38" font-family="'Fraunces', serif" font-weight="600" font-size="27" fill="#FCFAF5">BLUE <tspan fill="#C9A227" font-style="italic">PIPS</tspan></text>
+        <text x="83" y="55" font-family="'Inter', sans-serif" font-weight="700" letter-spacing="1.4" font-size="10.5" fill="#8C8A85">INVESTMENT</text>
+      </svg>
+    </a>
+    <nav class="primary-nav">
+      <a class="nav-link" href="strategies.html">Strategies</a>
+      <a class="nav-link" href="how-it-works.html">How It Works</a>
+      <a class="nav-link" href="payouts.html">Payouts</a>
+      <a class="nav-link" href="returns.html">Performance</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="login" href="index.html" id="logout-btn">Log out</a>
+    </div>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="dashboard-root">
+  <section class="page-header" style="padding-bottom:36px;">
+    <div class="wrap">
+      <span class="tag-label">Your account</span>
+      <h1>Welcome back, <span id="dash-name">—</span></h1>
+      <p>Here's where your capital currently sits across cash and tiered income.</p>
+    </div>
+  </section>
+
+  <section style="padding:0 0 80px; background:var(--ink);">
+    <div class="wrap">
+      <div class="perf-panel reveal in" style="margin-bottom:18px;">
+        <span class="tag-label">Total balance</span>
+        <div style="font-family:var(--font-display); font-size:44px; color:var(--gold); margin-top:8px;" id="dash-total">$0.00</div>
+      </div>
+
+      <div class="yield-metrics" style="margin-bottom:34px;">
+        <div class="perf-panel"><span class="tag-label">Initial capital available</span><strong id="initial-capital-balance">$0.00</strong><small id="invested-principal-note">Invested principal: $0.00</small><small id="capital-returned-note">Principal returns here at maturity.</small></div>
+        <div class="perf-panel"><span class="tag-label">Investment profit available</span><strong id="investment-profit-balance">$0.00</strong><small id="profit-paid-note">Profit paid to date: $0.00</small><small id="profit-pending-note">Pending profit: $0.00</small></div>
+      </div>
+
+      <div class="perf-panel reveal in" id="yield-transparency" style="margin-bottom:34px;">
+        <span class="tag-label">Yield transparency · last 24 hours</span>
+        <p id="yield-source-status" style="font-size:12.5px; color:var(--steel); margin:8px 0 18px;">Loading source data…</p>
+        <div class="yield-metrics">
+          <div><span>DeFi target / observed</span><strong id="yield-defi-gross">60% / —</strong><small id="yield-defi-net">Net: —</small><small id="yield-defi-proof">No recent event</small></div>
+          <div><span>Arbitrage target / observed</span><strong id="yield-arbitrage-gross">40% / —</strong><small id="yield-arbitrage-net">Net: —</small><small id="yield-arbitrage-proof">No recent trade</small></div>
+          <div><span>Reserve buffer</span><strong id="yield-reserve-balance">—</strong><small>10% of gross, capped by positive net proceeds</small></div>
+          <div><span>Your tier rate</span><strong id="yield-tier-rate">—</strong><small id="yield-next-payout">No payout scheduled</small></div>
+          <div><span>Registered investment term</span><strong id="yield-investment-term">—</strong><small id="yield-maturity-date">Term starts on first investment</small></div>
+        </div>
+      </div>
+
+      <div class="funding-grid reveal in" style="margin-bottom:44px;">
+        <div class="perf-panel">
+          <span class="tag-label">Add funds</span>
+          <h3 style="font-family:var(--font-display); font-size:19px; color:var(--white); margin:8px 0 4px;">Deposit</h3>
+          <p id="deposit-limits-note" style="font-size:12.5px; color:var(--steel); margin-bottom:16px;">Loading limits…</p>
+          <form id="deposit-form">
+            <div class="field">
+              <label>Amount (USD)</label>
+              <input type="number" id="deposit-amount" step="1" placeholder="1000" required>
+            </div>
+            <div class="field">
+              <label>Method</label>
+              <select id="deposit-method">
+                <option value="ach">Bank transfer</option>
+                <option value="crypto">USDT (TRC20)</option>
+              </select>
+            </div>
+            <div class="field bank-directory-picker" id="deposit-bank-picker" hidden>
+              <label for="deposit-bank-country">Bank country</label>
+              <select id="deposit-bank-country" disabled><option value="">Loading countries…</option></select>
+              <label for="deposit-bank-search">Search bank</label>
+              <input type="search" id="deposit-bank-search" minlength="2" autocomplete="off" placeholder="Type at least 2 characters" disabled>
+              <select id="deposit-bank-results" aria-label="Matching banks" disabled><option value="">Search unavailable</option></select>
+              <small id="deposit-bank-note"></small>
+            </div>
+            <div id="crypto-deposit-info" class="crypto-deposit-info" hidden style="display:none;">
+              <strong>USDT deposit address · TRC20</strong>
+              <div class="crypto-address-row"><span id="deposit-usdt-address">Unavailable</span><button class="btn btn-outline copy-wallet-btn" id="copy-usdt-address" type="button" disabled>Copy</button></div>
+              <small id="deposit-usdt-note">USDT on TRON (TRC20) only. Verify the network and address before sending.</small>
+            </div>
+            <div id="deposit-status" class="funding-status" style="display:none;"></div>
+            <button class="btn btn-gold btn-block" type="submit">Deposit</button>
+          </form>
+        </div>
+
+        <div class="perf-panel">
+          <span class="tag-label">Take funds out</span>
+          <h3 style="font-family:var(--font-display); font-size:19px; color:var(--white); margin:8px 0 4px;">Withdraw</h3>
+          <p id="withdraw-limits-note" style="font-size:12.5px; color:var(--steel); margin-bottom:16px;">Loading limits…</p>
+          <form id="withdraw-form">
+            <div class="field">
+              <label>Amount (USD)</label>
+              <input type="number" id="withdraw-amount" step="1" placeholder="1000" required>
+            </div>
+            <div class="field">
+              <label>Method</label>
+              <select id="withdraw-method">
+                <option value="ach">Bank transfer</option>
+                <option value="crypto">USDT (TRC20)</option>
+              </select>
+            </div>
+            <div class="field bank-directory-picker" id="withdraw-bank-picker" hidden>
+              <label for="withdraw-bank-country">Bank country</label>
+              <select id="withdraw-bank-country" disabled><option value="">Loading countries…</option></select>
+              <label for="withdraw-bank-search">Search bank</label>
+              <input type="search" id="withdraw-bank-search" minlength="2" autocomplete="off" placeholder="Type at least 2 characters" disabled>
+              <select id="withdraw-bank-results" aria-label="Matching banks" disabled><option value="">Search unavailable</option></select>
+              <small id="withdraw-bank-note"></small>
+            </div>
+            <div class="field" id="withdraw-usdt-picker" hidden>
+              <label for="withdraw-usdt-address">USDT wallet address (TRON / TRC20)</label>
+              <input type="text" id="withdraw-usdt-address" inputmode="text" autocomplete="off" placeholder="T..." maxlength="34" pattern="T[1-9A-HJ-NP-Za-km-z]{33}">
+              <small>USDT only on TRON (TRC20). Incorrect network addresses can permanently lose funds.</small>
+            </div>
+            <div id="withdraw-status" class="funding-status" style="display:none;"></div>
+            <button class="btn btn-outline btn-block" type="submit">Withdraw</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="perf-panel reveal in" style="margin-bottom:44px;">
+        <span class="tag-label">Put your cash to work</span>
+        <h3 style="font-family:var(--font-display); font-size:19px; color:var(--white); margin:8px 0 4px;">Tiered Income</h3>
+        <p style="font-size:12.5px; color:var(--steel); margin-bottom:16px;">Monthly rate is selected from your principal tier. Payout estimates are subject to reserve availability and are not guaranteed.</p>
+          <p id="invest-available-note" style="font-size:12.5px; color:var(--steel); margin-bottom:16px;">Available initial capital: $0.00</p>
+        <form id="invest-form" class="invest-grid">
+          <div class="field">
+            <label for="invest-amount">Amount (USD)</label>
+            <input type="number" id="invest-amount" min="0.01" step="0.01" placeholder="1000" required>
+          </div>
+          <div class="field">
+            <label for="invest-frequency">Withdrawal interval</label>
+            <select id="invest-frequency" required>
+              <option value="bi-weekly">Bi-weekly</option>
+              <option value="monthly" selected>Monthly</option>
+              <option value="quarterly">Quarterly</option>
+              <option value="bi-annually">Bi-annually</option>
+              <option value="annually">Annually</option>
+            </select>
+          </div>
+          <div class="tiered-estimate" aria-live="polite">
+            <div><span class="tag-label">Rate after investment</span><strong id="invest-rate">20%</strong></div>
+            <div><span class="tag-label">Estimated payout</span><strong id="invest-estimate">$200.00</strong></div>
+            <small id="invest-estimate-label">Monthly estimate; returns are not guaranteed.</small>
+          </div>
+          <div class="invest-submit">
+            <div id="invest-status" class="funding-status" style="display:none;"></div>
+            <button class="btn btn-gold btn-block" type="submit">Invest cash</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="section-head">
+        <div><span class="tag-label">Holdings</span><h2>Your positions</h2></div>
+      </div>
+      <div class="ways-grid" id="dash-holdings"></div>
+
+      <div class="section-head" style="margin-top:50px;">
+        <div><span class="tag-label">Activity</span><h2>Recent transactions</h2></div>
+      </div>
+      <div class="perf-panel">
+        <table class="payout-table" id="dash-transactions-table">
+          <thead>
+            <tr><th>Type</th><th>Method</th><th>Amount</th><th>Status</th><th>When</th></tr>
+          </thead>
+          <tbody id="dash-transactions"><tr><td colspan="5" style="color:var(--steel); font-size:13px;">No transactions yet.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .funding-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .invest-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; gap:16px; align-items:end; }
+  .invest-submit{ min-width:0; }
+  .tiered-estimate{ grid-column:1/-1; display:flex; flex-wrap:wrap; align-items:center; gap:24px; padding:15px 0; border-top:1px solid rgba(243,238,227,.1); border-bottom:1px solid rgba(243,238,227,.1); }
+  .tiered-estimate div{ display:grid; gap:4px; }
+  .tiered-estimate strong{ color:var(--gold); font-family:var(--font-display); font-size:22px; }
+  .tiered-estimate small{ margin-left:auto; color:var(--steel); font-size:12px; }
+  .yield-metrics{ display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:18px; }
+  .yield-metrics div{ display:grid; gap:5px; min-width:0; }
+  .yield-metrics span,.yield-metrics small{ color:var(--steel); font-size:12px; overflow-wrap:anywhere; }
+  .yield-metrics strong{ color:var(--gold); font-family:var(--font-display); font-size:19px; overflow-wrap:anywhere; }
+  .funding-status{ font-size:13px; padding:10px 12px; border-radius:4px; margin-bottom:14px; }
+  .funding-status.ok{ background:rgba(201,162,39,.12); border:1px solid rgba(201,162,39,.4); color:var(--gold); }
+  .funding-status.err{ background:rgba(74,20,32,.35); border:1px solid var(--oxblood-bright); color:var(--parchment); }
+  .bank-list{ list-style:none; margin:14px 0 18px; padding:0; }
+  .bank-list li{ display:flex; flex-direction:column; gap:3px; padding:10px 0; border-top:1px solid rgba(243,238,227,.1); color:var(--parchment); font-size:13px; }
+  .bank-list li span{ color:var(--steel); font-size:12px; }
+  .funding-detail{ color:var(--steel); font-size:12px; overflow-wrap:anywhere; }
+  .funding-detail strong{ color:var(--gold); }
+  .crypto-deposit-info{ display:grid; gap:5px; margin:0 0 14px; padding:12px; border:1px solid rgba(201,162,39,.4); background:rgba(201,162,39,.08); color:var(--parchment); font-size:12px; }
+  .crypto-address-row{ display:flex; align-items:center; gap:8px; }
+  .crypto-deposit-info span{ color:var(--gold-bright); overflow-wrap:anywhere; font-family:monospace; }
+  .copy-wallet-btn{ flex:0 0 auto; padding:7px 10px; }
+  .crypto-deposit-info small{ color:var(--steel); }
+  .payout-table{ width:100%; border-collapse:collapse; }
+  .payout-table th, .payout-table td{ text-align:left; padding:11px 10px; font-size:13.5px; border-bottom:1px solid rgba(243,238,227,.08); }
+  .payout-table th{ color:var(--gold); font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+  .payout-table td{ color:rgba(243,238,227,.78); }
+  @media (max-width: 900px){ .funding-grid,.invest-grid{ grid-template-columns:1fr; } .yield-metrics{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+</style>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
