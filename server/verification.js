@@ -1,10 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 const { parsePhoneNumberFromString } = require('libphonenumber-js');
-
-let emailTransport;
 
 function normalizeEmail(value) {
   if (typeof value !== 'string') return null;
@@ -40,9 +37,7 @@ function isVerificationCodeValid(challengeId, code, storedHash) {
 }
 
 function emailSettingsConfigured() {
-  const hasAuthUser = Boolean(process.env.SMTP_USER);
-  const hasAuthPassword = Boolean(process.env.SMTP_PASSWORD);
-  return Boolean(process.env.SMTP_HOST && process.env.SMTP_FROM) && hasAuthUser === hasAuthPassword;
+  return Boolean(process.env.BREVO_API_KEY && process.env.BREVO_FROM_EMAIL);
 }
 
 function isVerificationConfigured() {
@@ -50,28 +45,28 @@ function isVerificationConfigured() {
 }
 
 async function sendVerificationCode({ destination, code }) {
-  if (!emailSettingsConfigured()) throw new Error('SMTP verification settings are incomplete.');
-  if (!emailTransport) {
-    const port = Number(process.env.SMTP_PORT) || 587;
-    const auth = process.env.SMTP_USER
-      ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD }
-      : undefined;
-    emailTransport = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port,
-      secure: process.env.SMTP_SECURE === 'true' || port === 465,
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-      ...(auth ? { auth } : {}),
-    });
-  }
-  await emailTransport.sendMail({
-    from: process.env.SMTP_FROM,
-    to: destination,
-    subject: 'Your Blue Pips verification code',
-    text: `Your Blue Pips verification code is ${code}. It expires in 15 minutes.`,
+  if (!emailSettingsConfigured()) throw new Error('Brevo API verification settings are incomplete.');
+  const sender = { email: process.env.BREVO_FROM_EMAIL };
+  if (process.env.BREVO_FROM_NAME) sender.name = process.env.BREVO_FROM_NAME;
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'api-key': process.env.BREVO_API_KEY,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender,
+      to: [{ email: destination }],
+      subject: 'Your Blue Pips verification code',
+      textContent: `Your Blue Pips verification code is ${code}. It expires in 15 minutes.`,
+    }),
+    signal: AbortSignal.timeout(15000),
   });
+  if (!response.ok) {
+    const details = (await response.text()).slice(0, 1000);
+    throw new Error(`Brevo API request failed (${response.status}): ${details}`);
+  }
 }
 
 module.exports = {

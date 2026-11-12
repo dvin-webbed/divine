@@ -15,9 +15,11 @@ const { maturityDateForTerm, getMaturityLock } = require('./investmentTerms');
 const { REFERRAL_COMMISSION_CENTS } = require('./referrals');
 const {
   createVerificationCode,
+  isVerificationConfigured,
   isVerificationCodeValid,
   normalizeEmail,
   normalizePhone,
+  sendVerificationCode,
   verificationCodeHash,
 } = require('./verification');
 
@@ -64,6 +66,45 @@ test('signup verification codes are six digits and bound to their challenge', ()
   assert.notEqual(verificationCodeHash('challenge-a', code), verificationCodeHash('challenge-b', code));
   assert.equal(isVerificationCodeValid('challenge-a', code, verificationCodeHash('challenge-a', code)), true);
   assert.equal(isVerificationCodeValid('challenge-a', '000000', verificationCodeHash('challenge-a', code)), false);
+});
+
+test('verification email is sent through the Brevo API with the configured sender', async () => {
+  const oldConfig = {
+    apiKey: process.env.BREVO_API_KEY,
+    fromEmail: process.env.BREVO_FROM_EMAIL,
+    fromName: process.env.BREVO_FROM_NAME,
+  };
+  const oldFetch = globalThis.fetch;
+  let request;
+  process.env.BREVO_API_KEY = 'test-api-key';
+  process.env.BREVO_FROM_EMAIL = 'verified@example.com';
+  process.env.BREVO_FROM_NAME = 'Blue Pips';
+  globalThis.fetch = async (url, options) => {
+    request = { url, options };
+    return { ok: true, status: 201 };
+  };
+
+  try {
+    assert.equal(isVerificationConfigured(), true);
+    await sendVerificationCode({ destination: 'user@example.com', code: '123456' });
+    assert.equal(request.url, 'https://api.brevo.com/v3/smtp/email');
+    assert.equal(request.options.method, 'POST');
+    assert.equal(request.options.headers['api-key'], 'test-api-key');
+    assert.deepEqual(JSON.parse(request.options.body), {
+      sender: { email: 'verified@example.com', name: 'Blue Pips' },
+      to: [{ email: 'user@example.com' }],
+      subject: 'Your Blue Pips verification code',
+      textContent: 'Your Blue Pips verification code is 123456. It expires in 15 minutes.',
+    });
+  } finally {
+    if (oldConfig.apiKey === undefined) delete process.env.BREVO_API_KEY;
+    else process.env.BREVO_API_KEY = oldConfig.apiKey;
+    if (oldConfig.fromEmail === undefined) delete process.env.BREVO_FROM_EMAIL;
+    else process.env.BREVO_FROM_EMAIL = oldConfig.fromEmail;
+    if (oldConfig.fromName === undefined) delete process.env.BREVO_FROM_NAME;
+    else process.env.BREVO_FROM_NAME = oldConfig.fromName;
+    globalThis.fetch = oldFetch;
+  }
 });
 
 test('tier thresholds and payout intervals use the configured 30% ceiling', () => {
